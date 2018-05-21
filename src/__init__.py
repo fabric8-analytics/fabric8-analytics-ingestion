@@ -15,13 +15,4 @@
 # Author: Geetika Batra <gbatra@redhat.com>
 #
 
-"""Utility class."""
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm.exc import NoResultFound
-import logging
-
-
-logger = logging.getLogger(__name__)
+"""Initialize Source Module."""
