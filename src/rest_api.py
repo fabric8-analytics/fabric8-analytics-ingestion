@@ -17,12 +17,16 @@
 
 """Class to define routes."""
 
+import connexion
 import flask
 from flask import Flask, request
 from flask_cors import CORS
+import defaults as defaults
 
-app = Flask(__name__)
-CORS(app)
+app = connexion.FlaskApp(__name__)
+app.add_api(defaults.SWAGGER_YAML_PATH)
+# app = Flask(__name__)
+# CORS(app)
 
 
 @app.route('/api/v1/readiness')
@@ -38,10 +42,10 @@ def liveness():
 
 
 @app.route('/api/v1/ingest')
-def ingest():
+def ingest  ():
     """Liveness probe."""
     return flask.jsonify({}), 200
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=8080)
