@@ -21,12 +21,13 @@ import logging
 from urllib.parse import quote, urljoin
 
 import random
-from os import environ
+from os import environ, path
 
-from f8a_ingestion.errors import F8AConfigurationException
+from errors import F8AConfigurationException
 
 logger = logging.getLogger(__name__)
 
+SWAGGER_YAML_PATH = path.join(path.dirname(path.realpath(__file__)), '../swagger/swagger.yaml')
 
 class F8AConfiguration(object):
     """Configuration."""
@@ -44,7 +45,7 @@ class F8AConfiguration(object):
         connection = 'postgresql://{user}:{password}@{pgbouncer_host}:{pgbouncer_port}' \
                      '/{database}?sslmode=disable'. \
             format(user=environ.get('POSTGRESQL_USER'),
-                   password=password,
+                   password=environ.get('POSTGRES_PASSWORD'),
                    pgbouncer_host=environ.get('PGBOUNCER_SERVICE_HOST', 'coreapi-pgbouncer'),
                    pgbouncer_port=environ.get('PGBOUNCER_SERVICE_PORT', '5432'),
                    database=environ.get('POSTGRESQL_DATABASE'))
