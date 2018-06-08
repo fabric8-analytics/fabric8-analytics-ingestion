@@ -28,8 +28,8 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 from sqlalchemy.pool import NullPool
 
-from f8a_ingestion.defaults import configuration
-from f8a_ingestion.enums import EcosystemBackend
+from defaults import configuration
+from enums import EcosystemBackend
 
 
 def create_db_scoped_session(connection_string=None):
@@ -109,7 +109,6 @@ class Ecosystem(Base):
     __tablename__ = 'ecosystems'
 
     id = Column(Integer, primary_key=True)
-    source_repo = Column(String(255), unique=True)
     name = Column(String(255), unique=True)
     url = Column(String(255))
     _backend = Column(
