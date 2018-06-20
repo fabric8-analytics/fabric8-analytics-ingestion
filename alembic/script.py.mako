@@ -1,4 +1,4 @@
-"""${message}
+"""${message}.
 
 Revision ID: ${up_revision}
 Revises: ${down_revision | comma,n}
@@ -17,8 +17,10 @@ depends_on = ${repr(depends_on)}
 
 
 def upgrade():
+    """Upgrade the database to a newer revision."""
     ${upgrades if upgrades else "pass"}
 
 
 def downgrade():
+    """Downgrade the database to an older revision."""
     ${downgrades if downgrades else "pass"}
