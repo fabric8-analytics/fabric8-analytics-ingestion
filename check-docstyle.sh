@@ -1,25 +1,26 @@
-chmod +x check-docstyle.sh
+#!/bin/bash
+
 directories="f8a_ingestion tests alembic"
-separate_files="setup.py __init__.py"
+separate_files="setup.py"
 pass=0
 fail=0
 
 function prepare_venv() {
-    VIRTUALENV=`which virtualenv` || :
+    VIRTUALENV=$(which virtualenv) || :
     if [ -z "$VIRTUALENV" ]; then
         # python34 which is in CentOS does not have virtualenv binary
-        VIRTUALENV=`which virtualenv-3`
+        VIRTUALENV=$(which virtualenv-3)
     fi
 
-    ${VIRTUALENV} -p python3 venv && source venv/bin/activate && python3 `which pip3` install pydocstyle
+    ${VIRTUALENV} -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install pydocstyle
 }
 
 # run the pydocstyle for all files that are provided in $1
 function check_files() {
     for source in $1
     do
-        echo $source
-        pydocstyle --count $source
+        echo "$source"
+        pydocstyle --count "$source"
         if [ $? -eq 0 ]
         then
             echo "    Pass"
@@ -39,7 +40,7 @@ function check_files() {
 echo "----------------------------------------------------"
 echo "Checking documentation strings in all sources stored"
 echo "in following directories:"
-echo $directories
+echo "$directories"
 echo "----------------------------------------------------"
 echo
 
@@ -48,7 +49,7 @@ echo
 # checks for the whole directories
 for directory in $directories
 do
-    files=`find $directory -path $directory/venv -prune -o -name '*.py' -print`
+    files=$(find "$directory" -path "$directory/venv" -prune -o -name '*.py' -print)
 
     check_files "$files"
 done
@@ -57,7 +58,7 @@ done
 echo
 echo "----------------------------------------------------"
 echo "Checking documentation strings in the following files"
-echo $separate_files
+echo "$separate_files"
 echo "----------------------------------------------------"
 
 check_files "$separate_files"
@@ -71,3 +72,4 @@ else
     echo "Documentation strings should be added and/or fixed in $fail source files out of $total files"
     exit 1
 fi
+

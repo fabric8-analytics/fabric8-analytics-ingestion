@@ -16,9 +16,9 @@ gc() {
   retval=$?
   # FIXME: make this configurable
   echo "Stopping test containers"
-  docker stop ${CONTAINER_NAME} ${TESTDB_CONTAINER_NAME} || :
+  docker stop "${CONTAINER_NAME}" "${TESTDB_CONTAINER_NAME}" || :
   echo "Removing test containers"
-  docker rm -v ${CONTAINER_NAME} || :
+  docker rm -v "${CONTAINER_NAME}" || :
   echo "Removing network ${DOCKER_NETWORK}"
   docker network rm ${DOCKER_NETWORK} || :
   deactivate
@@ -29,17 +29,17 @@ gc() {
 trap gc EXIT SIGINT
 
 function prepare_venv() {
-    VIRTUALENV=`which virtualenv` || :
+    VIRTUALENV=$(which virtualenv) || :
     if [ -z "$VIRTUALENV" ]
     then
         # python34 which is in CentOS does not have virtualenv binary
-        VIRTUALENV=`which virtualenv-3`
+        VIRTUALENV=$(which virtualenv-3)
     fi
 
     ${VIRTUALENV} -p python3 venv && source venv/bin/activate
     if [ $? -ne 0 ]
     then
-        printf "${RED}Python virtual environment can't be initialized${NORMAL}"
+        printf "%sPython virtual environment can't be initialized%s" "${RED}" "${NORMAL}"
         exit 1
     fi
 }
@@ -58,14 +58,14 @@ docker run -d \
     --env-file tests/postgres.env \
     --network ${DOCKER_NETWORK} \
     -p 5432:5432 \
-    --name ${TESTDB_CONTAINER_NAME} ${POSTGRES_IMAGE_NAME}
-DB_CONTAINER_IP=$(docker inspect --format "{{.NetworkSettings.Networks.${DOCKER_NETWORK}.IPAddress}}" ${TESTDB_CONTAINER_NAME})
+    --name "${TESTDB_CONTAINER_NAME}" "${POSTGRES_IMAGE_NAME}"
+DB_CONTAINER_IP=$(docker inspect --format "{{.NetworkSettings.Networks.${DOCKER_NETWORK}.IPAddress}}" "${TESTDB_CONTAINER_NAME}")
 DB_CONTAINER_IP="0.0.0.0"
 # TODO: this is duplicating code with server's runtest, we should refactor
 echo "Waiting for postgres to fully initialize"
 set +x
 for i in {1..10}; do
-  retcode=`curl http://${DB_CONTAINER_IP}:5432 &>/dev/null || echo $?`
+  retcode=$(curl http://${DB_CONTAINER_IP}:5432 &>/dev/null || echo $?)
   if test "$retcode" == "52"; then
     break
   fi;
@@ -77,6 +77,6 @@ export POSTGRESQL_USER=coreapi
 export POSTGRESQL_PASSWORD=coreapi
 export POSTGRESQL_DATABASE=coreapi
 
-python3 `which pytest` --cov=f8a_ingestion/ --cov-report term-missing -vv tests
+python3 "$(which pytest)" --cov=f8a_ingestion/ --cov-report term-missing -vv tests
 
 echo "Test suite passed \\o/"
