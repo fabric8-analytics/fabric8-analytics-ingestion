@@ -1,7 +1,7 @@
 #!/bin/bash
 
 directories="f8a_ingestion tests alembic"
-separate_files="setup.py __init__.py"
+separate_files="setup.py"
 pass=0
 fail=0
 

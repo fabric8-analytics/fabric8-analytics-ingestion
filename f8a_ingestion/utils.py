@@ -38,6 +38,7 @@ def get_session():
 
 def validate_request_data(input_json):
     """Validate the data.
+
     :param input_json: dict, describing data
     :return: boolean, result
     """
@@ -69,6 +70,7 @@ class DatabaseIngestion:
     @staticmethod
     def update_data(data):
         """Update existing record in the database.
+
         :param data: dict, describing Ecosystem data
         :return: None
         """
@@ -87,6 +89,7 @@ class DatabaseIngestion:
     @classmethod
     def store_record(cls, data):
         """Store new record in the database.
+
         :param data: dict, describing Ecosystem data
         :return: boolean based on completion of process
         """
@@ -113,6 +116,7 @@ class DatabaseIngestion:
     @classmethod
     def get_info(cls, search_key):
         """Get information about Ecosystem.
+
         :param search_key: Ecosystem name to search database
         :return: record from database if exists
         """
