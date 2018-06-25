@@ -5,6 +5,9 @@ set -x
 
 here=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 
+# test coverage threshold
+COVERAGE_THRESHOLD=50
+
 TIMESTAMP="$(date +%F-%H-%M-%S)"
 
 POSTGRES_IMAGE_NAME="registry.centos.org/centos/postgresql-94-centos7:latest"
@@ -77,6 +80,6 @@ export POSTGRESQL_USER=coreapi
 export POSTGRESQL_PASSWORD=coreapi
 export POSTGRESQL_DATABASE=coreapi
 
-python3 "$(which pytest)" --cov=f8a_ingestion/ --cov-report term-missing -vv tests
+python3 "$(which pytest)" --cov=f8a_ingestion/ --cov-report term-missing --cov-fail-under=$COVERAGE_THRESHOLD -vv tests
 
 echo "Test suite passed \\o/"
