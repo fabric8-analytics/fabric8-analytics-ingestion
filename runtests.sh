@@ -6,7 +6,7 @@ set -x
 here=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 
 # test coverage threshold
-COVERAGE_THRESHOLD=50
+COVERAGE_THRESHOLD=25
 
 TIMESTAMP="$(date +%F-%H-%M-%S)"
 
