@@ -18,14 +18,12 @@
 """Utility class."""
 
 
-from sqlalchemy import (Column, DateTime, Enum, ForeignKey, Integer, String, UniqueConstraint,
-                        create_engine, func, Boolean)
-from sqlalchemy.dialects.postgresql import ENUM
+from sqlalchemy import (Column, Enum, ForeignKey, Integer, String, UniqueConstraint,
+                        create_engine)
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, scoped_session, sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.orm.session import Session
 from sqlalchemy.pool import NullPool
 
 from f8a_ingestion.defaults import configuration

@@ -18,12 +18,9 @@
 """Configuration."""
 
 import logging
-from urllib.parse import quote, urljoin
+from urllib.parse import quote
 
-import random
 from os import environ, path
-
-from f8a_ingestion.errors import F8AConfigurationException
 
 logger = logging.getLogger(__name__)
 

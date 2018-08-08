@@ -42,6 +42,9 @@ def validate_request_data(input_json):
     :param input_json: dict, describing data
     :return: boolean, result
     """
+    if not input_json:
+        return False, "Invalid: input is empty"
+
     backend_list = list(EcosystemBackend.__members__.keys())
     validate_string = "{} is not valid"
     if 'ecosystem' not in input_json:
