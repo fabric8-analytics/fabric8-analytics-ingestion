@@ -15,7 +15,7 @@ def test_validate_request_data_not_valid_ecosystem():
     payload = {}
     valid, message = validate_request_data(payload)
     assert not valid
-    assert message == "Ecosystem name is not valid"
+    assert message == "Invalid: input is empty"
 
 
 def test_validate_request_data_not_valid_backend():
