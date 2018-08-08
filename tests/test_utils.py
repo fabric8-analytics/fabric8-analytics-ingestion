@@ -1,7 +1,5 @@
 """Test module for classes and functions found in the utils module."""
-import os
-
-from f8a_ingestion.utils import *
+# from f8a_ingestion.utils import *
 
 
 def test_dummy():
