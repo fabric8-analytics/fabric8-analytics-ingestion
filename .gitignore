@@ -10,3 +10,5 @@ error.log
 derby.log
 metastore_db/
 .idea/
+html/
+latex/
