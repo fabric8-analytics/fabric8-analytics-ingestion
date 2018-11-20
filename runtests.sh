@@ -80,4 +80,6 @@ export POSTGRESQL_DATABASE=coreapi
 
 python3 "$(which pytest)" --cov=f8a_ingestion/ --cov-report term-missing --cov-fail-under=$COVERAGE_THRESHOLD -vv tests
 
+codecov --token=2f8ccb55-56d7-4340-aa23-b3cbb8e24706
+
 echo "Test suite passed \\o/"
