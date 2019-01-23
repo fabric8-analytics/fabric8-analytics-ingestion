@@ -10,12 +10,20 @@ def test_validate_request_data_no_payload():
     assert message == "Invalid: input is empty"
 
 
-def test_validate_request_data_not_valid_ecosystem():
+def test_validate_request_data_empty_payload():
     """Test the function validate_request_data: how it handles improper payload."""
     payload = {}
     valid, message = validate_request_data(payload)
     assert not valid
     assert message == "Invalid: input is empty"
+
+
+def test_validate_request_data_not_valid_ecosystem():
+    """Test the function validate_request_data: how it handles improper payload."""
+    payload = {"foo": "bar"}
+    valid, message = validate_request_data(payload)
+    assert not valid
+    assert message == "Ecosystem name is not valid"
 
 
 def test_validate_request_data_not_valid_backend():
@@ -43,6 +51,7 @@ def test_validate_request_data_valid_backend():
 
 if __name__ == '__main__':
     test_validate_request_data_no_payload()
+    test_validate_request_data_empty_payload()
     test_validate_request_data_not_valid_ecosystem()
     test_validate_request_data_not_valid_backend()
     test_validate_request_data_valid_backend()
