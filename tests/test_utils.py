@@ -1,5 +1,5 @@
 """Test module for classes and functions found in the utils module."""
-from f8a_ingestion.utils import validate_request_data
+from f8a_ingestion.utils import validate_request_data, _eco_object_dict
 
 
 def test_validate_request_data_no_payload():
@@ -49,9 +49,22 @@ def test_validate_request_data_valid_backend():
     assert message is None
 
 
+def test_eco_object_dict():
+    """Test the function _eco_object_dict."""
+    data = {"ecosystem": "e",
+            "url": "u",
+            "backend": "b"}
+    result = _eco_object_dict(data)
+    assert result
+    assert "ecosystem" in result
+    assert "url" in result
+    assert "backend" in result
+
+
 if __name__ == '__main__':
     test_validate_request_data_no_payload()
     test_validate_request_data_empty_payload()
     test_validate_request_data_not_valid_ecosystem()
     test_validate_request_data_not_valid_backend()
     test_validate_request_data_valid_backend()
+    test_eco_object_dict()
