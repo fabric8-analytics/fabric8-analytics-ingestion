@@ -1,7 +1,6 @@
 """Unit tests for the errors module."""
 
 import json
-from f8a_ingestion.rest_api import readiness
 
 
 def api_route_for(route):
@@ -22,5 +21,14 @@ def test_readiness_endpoint(client):
     assert json_data == {}, "Empty JSON response expected"
 
 
+def test_liveness_endpoint(client):
+    """Test the /api/v1/liveness endpoint."""
+    response = client.get(api_route_for("liveness"))
+    assert response.status_code == 200
+    json_data = get_json_from_response(response)
+    assert json_data == {}, "Empty JSON response expected"
+
+
 if __name__ == '__main__':
     test_readiness_endpoint()
+    test_liveness_endpoint()
