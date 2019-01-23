@@ -1,4 +1,6 @@
 """Test module for classes and functions found in the utils module."""
+
+from f8a_ingestion.models import Ecosystem
 from f8a_ingestion.utils import validate_request_data, _eco_object_dict
 
 
@@ -56,9 +58,12 @@ def test_eco_object_dict():
             "backend": "b"}
     result = _eco_object_dict(data)
     assert result
-    assert "ecosystem" in result
-    assert "url" in result
-    assert "backend" in result
+    assert Ecosystem.name in result
+    assert Ecosystem.url in result
+    assert Ecosystem._backend in result
+    assert result[Ecosystem.name] == "e"
+    assert result[Ecosystem.url] == "u"
+    assert result[Ecosystem._backend] == "b"
 
 
 if __name__ == '__main__':
