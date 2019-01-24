@@ -81,12 +81,9 @@ def test_ingest_endpoint_no_payload(client):
         'Content-Type': 'application/json'
     }
     response = client.post(api_route_for("ingest"), headers=headers)
-    assert response.status_code == 404
+    assert response.status_code == 400
     json_data = get_json_from_response(response)
-    assert "success" in json_data
-    assert "summary" in json_data
-    assert not json_data["success"]
-    assert json_data["summary"] == "Invalid: input is empty"
+    assert json_data is not None
 
 
 def test_ingest_endpoint_empty_payload(client):
@@ -95,7 +92,7 @@ def test_ingest_endpoint_empty_payload(client):
         'Content-Type': 'application/json'
     }
     payload = {}
-    response = client.post(api_route_for("ingest"), headers=headers, payload=payload)
+    response = client.post(api_route_for("ingest"), headers=headers, json=payload)
     assert response.status_code == 404
     json_data = get_json_from_response(response)
     assert "success" in json_data
