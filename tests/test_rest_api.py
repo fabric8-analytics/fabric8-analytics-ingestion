@@ -21,6 +21,19 @@ def test_readiness_endpoint(client):
     assert json_data == {}, "Empty JSON response expected"
 
 
+def test_readiness_endpoint_wrong_http_method(client):
+    """Test the /api/v1/readiness endpoint by calling it with wrong HTTP method."""
+    url = api_route_for("readiness")
+    response = client.post(url)
+    assert response.status_code == 405
+    response = client.put(url)
+    assert response.status_code == 405
+    response = client.patch(url)
+    assert response.status_code == 405
+    response = client.delete(url)
+    assert response.status_code == 405
+
+
 def test_liveness_endpoint(client):
     """Test the /api/v1/liveness endpoint."""
     response = client.get(api_route_for("liveness"))
@@ -29,6 +42,71 @@ def test_liveness_endpoint(client):
     assert json_data == {}, "Empty JSON response expected"
 
 
+def test_liveness_endpoint_wrong_http_method(client):
+    """Test the /api/v1/liveness endpoint by calling it with wrong HTTP method."""
+    url = api_route_for("liveness")
+    response = client.post(url)
+    assert response.status_code == 405
+    response = client.put(url)
+    assert response.status_code == 405
+    response = client.patch(url)
+    assert response.status_code == 405
+    response = client.delete(url)
+    assert response.status_code == 405
+
+
+def test_ingest_endpoint_wrong_http_method(client):
+    """Test the /api/v1/ingest endpoint with wrong method."""
+    response = client.get(api_route_for("ingest"))
+    assert response.status_code == 405
+
+
+def test_ingest_endpoint_wrong_content_type(client):
+    """Test the /api/v1/ingest endpoint with wrong content-type."""
+    headers = {
+        'Content-Type': 'image/gif'
+    }
+    response = client.post(api_route_for("ingest"), headers=headers)
+    assert response.status_code == 400
+    json_data = get_json_from_response(response)
+    assert "success" in json_data
+    assert "summary" in json_data
+    assert not json_data["success"]
+    assert json_data["summary"] == "Set content type to application/json"
+
+
+def test_ingest_endpoint_no_payload(client):
+    """Test the /api/v1/ingest endpoint with no payload."""
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = client.post(api_route_for("ingest"), headers=headers)
+    assert response.status_code == 400
+    json_data = get_json_from_response(response)
+    assert json_data is not None
+
+
+def test_ingest_endpoint_empty_payload(client):
+    """Test the /api/v1/ingest endpoint with empty payload."""
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    payload = {}
+    response = client.post(api_route_for("ingest"), headers=headers, json=payload)
+    assert response.status_code == 404
+    json_data = get_json_from_response(response)
+    assert "success" in json_data
+    assert "summary" in json_data
+    assert not json_data["success"]
+    assert json_data["summary"] == "Invalid: input is empty"
+
+
 if __name__ == '__main__':
     test_readiness_endpoint()
+    test_readiness_endpoint_wrong_http_method()
     test_liveness_endpoint()
+    test_liveness_endpoint_wrong_http_method()
+    test_ingest_endpoint_wrong_http_method()
+    test_ingest_endpoint_wrong_content_type()
+    test_ingest_endpoint_no_payload()
+    test_ingest_endpoint_empty_payload()
