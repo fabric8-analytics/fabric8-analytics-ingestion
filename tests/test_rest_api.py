@@ -35,7 +35,22 @@ def test_ingest_endpoint_wrong_method(client):
     assert response.status_code == 405
 
 
+def test_ingest_endpoint_wrong_content_type(client):
+    """Test the /api/v1/ingest endpoint with wrong content-type."""
+    headers = {
+        'Content-Type': 'image/gif'
+    }
+    response = client.post(api_route_for("ingest"), headers=headers)
+    assert response.status_code == 400
+    json_data = get_json_from_response(response)
+    assert "success" in json_data
+    assert "summary" in json_data
+    assert not json_data["success"]
+    assert json_data["summary"] == "Set content type to application/json"
+
+
 if __name__ == '__main__':
     test_readiness_endpoint()
     test_liveness_endpoint()
     test_ingest_endpoint_wrong_method()
+    test_ingest_endpoint_wrong_content_type()
