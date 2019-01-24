@@ -29,6 +29,13 @@ def test_liveness_endpoint(client):
     assert json_data == {}, "Empty JSON response expected"
 
 
+def test_ingest_endpoint_wrong_method(client):
+    """Test the /api/v1/ingest endpoint with wrong method."""
+    response = client.get(api_route_for("ingest"))
+    assert response.status_code == 405
+
+
 if __name__ == '__main__':
     test_readiness_endpoint()
     test_liveness_endpoint()
+    test_ingest_endpoint_wrong_method()
