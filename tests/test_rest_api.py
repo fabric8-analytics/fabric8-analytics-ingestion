@@ -1,4 +1,4 @@
-"""Unit tests for the errors module."""
+"""Basic REST API tests."""
 
 import json
 
