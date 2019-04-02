@@ -12,3 +12,5 @@ metastore_db/
 .idea/
 html/
 latex/
+
+.DS_Store
