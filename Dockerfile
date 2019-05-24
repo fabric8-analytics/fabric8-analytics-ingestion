@@ -8,7 +8,7 @@ ENTRYPOINT ["/bin/entrypoint.sh"]
 WORKDIR ${APP_DIR}
 
 RUN yum install -y epel-release &&\
-    yum install -y gcc git python34-pip python34-devel postgresql &&\
+    yum install -y gcc git python36-pip python36-devel postgresql &&\
     yum clean all &&\
     mkdir -p ${ALEMBIC_DIR} ${APP_DIR}
 
