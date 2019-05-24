@@ -13,6 +13,10 @@ POSTGRES_IMAGE_NAME="registry.centos.org/centos/postgresql-94-centos7:latest"
 TESTDB_CONTAINER_NAME="ingestion-tests-db-${TIMESTAMP}"
 DOCKER_NETWORK="F8aIngestionTest"
 
+check_python_version() {
+    python3 tools/check_python_version.py 3 6
+}
+
 gc() {
   retval=$?
   # FIXME: make this configurable
@@ -44,6 +48,8 @@ function prepare_venv() {
         exit 1
     fi
 }
+
+check_python_version
 
 prepare_venv
 pip3 install -r requirements.txt
