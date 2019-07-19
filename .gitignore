@@ -14,3 +14,5 @@ html/
 latex/
 
 .DS_Store
+*.log
+*.err
