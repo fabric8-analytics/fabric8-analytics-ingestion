@@ -5,29 +5,79 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 alembic==0.9.9
-certifi==2018.4.16        # via requests
-chardet==3.0.4            # via requests
-click==6.7                # via clickclick, flask
-clickclick==1.2.2         # via connexion
+    # via -r requirements.in
+certifi==2018.4.16
+    # via requests
+chardet==3.0.4
+    # via requests
+click==6.7
+    # via
+    #   clickclick
+    #   flask
+clickclick==1.2.2
+    # via connexion
 codecov==2.0.15
+    # via -r requirements.in
 connexion==1.4.2
-coverage==4.5.4           # via codecov
+    # via -r requirements.in
+coverage==4.5.4
+    # via codecov
 flask==1.0.2
+    # via
+    #   -r requirements.in
+    #   connexion
+functools32==3.2.3.post2
+    # via jsonschema
 gunicorn==19.7.1
-idna==2.6                 # via requests
-inflection==0.3.1         # via connexion
-itsdangerous==0.24        # via flask
-jinja2==2.10              # via flask
-jsonschema==2.6.0         # via connexion, swagger-spec-validator
-mako==1.0.7               # via alembic
-markupsafe==1.0           # via jinja2, mako
+    # via -r requirements.in
+idna==2.6
+    # via requests
+inflection==0.3.1
+    # via connexion
+itsdangerous==0.24
+    # via flask
+jinja2==2.10
+    # via flask
+jsonschema==2.6.0
+    # via
+    #   connexion
+    #   swagger-spec-validator
+mako==1.0.7
+    # via alembic
+markupsafe==1.0
+    # via
+    #   jinja2
+    #   mako
+pathlib==1.0.1
+    # via connexion
 psycopg2==2.7.5
-python-dateutil==2.7.3    # via alembic
-python-editor==1.0.3      # via alembic
-pyyaml==3.12              # via clickclick, connexion
-requests==2.18.4          # via codecov, connexion
-six==1.11.0               # via connexion, python-dateutil, swagger-spec-validator
+    # via -r requirements.in
+python-dateutil==2.7.3
+    # via alembic
+python-editor==1.0.3
+    # via alembic
+pyyaml==5.4
+    # via
+    #   clickclick
+    #   connexion
+requests==2.18.4
+    # via
+    #   codecov
+    #   connexion
+six==1.11.0
+    # via
+    #   connexion
+    #   python-dateutil
+    #   swagger-spec-validator
 sqlalchemy==1.2.7
-swagger-spec-validator==2.1.0  # via connexion
-urllib3==1.22             # via requests
-werkzeug==0.15.3          # via flask
+    # via
+    #   -r requirements.in
+    #   alembic
+swagger-spec-validator==2.1.0
+    # via connexion
+typing==3.7.4.3
+    # via connexion
+urllib3==1.22
+    # via requests
+werkzeug==0.15.3
+    # via flask
